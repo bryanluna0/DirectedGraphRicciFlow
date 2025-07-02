@@ -97,7 +97,7 @@ class aStarNormalize:
         # construct the cost dictionary from x to y
         d = np.zeros((len(x), len(y)))
 
-        # issue need to have a path to all nodes which is not always the case
+        # if not strongly connected, I think there is issues here
         for i, src in enumerate(source_nbr):
             for j, dst in enumerate(target_nbr):
                 assert dst in self.lengths[src], "Target node not in list, should not happened, pair (%d, %d)" % (src, dst)
@@ -169,7 +169,7 @@ class aStarNormalize:
             for k in list(rc.keys()):
                 source, target = k
                 self.G[source][target]['ricciCurvature'] = rc[k]
-                print(rc[k])
+                print("rc - " + source + " to " + target + ":", rc[k])
 
         # Compute node Ricci curvature
         for n in self.G.nodes():

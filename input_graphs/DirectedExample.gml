@@ -8,8 +8,8 @@ graph
     label "a"
     graphics
     [
-      x -41.044773
-      y 96.34258
+      x -51.01194
+      y 36.415527
       z 0.0
       w 4.0
       h 4.0
@@ -23,8 +23,8 @@ graph
     label "b"
     graphics
     [
-      x 11.991987
-      y 98.30088
+      x 0.7693208
+      y 36.365025
       z 0.0
       w 4.0
       h 4.0
@@ -38,8 +38,8 @@ graph
     label "c"
     graphics
     [
-      x 68.42011
-      y 96.42283
+      x 51.17106
+      y 35.742474
       z 0.0
       w 4.0
       h 4.0
@@ -53,8 +53,8 @@ graph
     label "d"
     graphics
     [
-      x 64.99963
-      y 21.863459
+      x 50.76377
+      y -33.292706
       z 0.0
       w 4.0
       h 4.0
@@ -68,8 +68,8 @@ graph
     label "e"
     graphics
     [
-      x 13.825912
-      y 25.212605
+      x 0.59444934
+      y -33.20785
       z 0.0
       w 4.0
       h 4.0
@@ -83,8 +83,8 @@ graph
     label "f"
     graphics
     [
-      x -40.31069
-      y 25.939785
+      x -51.282257
+      y -32.982872
       z 0.0
       w 4.0
       h 4.0
@@ -145,6 +145,46 @@ graph
     id 9
     source 0
     target 5
+    value 1.0
+    fill "#000000"
+  ]
+  edge
+  [
+    id 12
+    source 5
+    target 0
+    value 1.0
+    fill "#000000"
+  ]
+  edge
+  [
+    id 13
+    source 1
+    target 0
+    value 1.0
+    fill "#000000"
+  ]
+  edge
+  [
+    id 15
+    source 4
+    target 1
+    value 1.0
+    fill "#000000"
+  ]
+  edge
+  [
+    id 16
+    source 4
+    target 5
+    value 1.0
+    fill "#000000"
+  ]
+  edge
+  [
+    id 17
+    source 2
+    target 3
     value 1.0
     fill "#000000"
   ]
