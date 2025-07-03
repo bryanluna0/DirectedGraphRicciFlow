@@ -182,7 +182,7 @@ class aStarNormalize:
                 # Assign the node Ricci curvature to be the average of node's adjacency edges
                 self.G.nodes[n]['ricciCurvature'] = rc_sum / self.G.degree(n)
         
-    def compute_ricci_flow_normalized(self, iterations=100, step=0.01, surgery={'name':'no_surgery', 'portion': 0.02, 'interval': 5}, save_gexf_dir=None):
+    def compute_ricci_flow_normalized(self, iterations=100, step=0.01, delta=1e-6, surgery={'name':'no_surgery', 'portion': 0.02, 'interval': 5}, save_gexf_dir=None):
         if not nx.is_strongly_connected(self.G): # used to say is connected? does it work like this? 
             print("Not connected graph detected, compute on the largest connected component instead.")
             self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
@@ -213,7 +213,7 @@ class aStarNormalize:
 #         x = list()
 # """""        
         for i in range(iterations):
-            self.lengths = self._get_all_pairs_shortest_path() # might not be necessary 
+            # self.lengths = self._get_all_pairs_shortest_path() # might not be necessary 
             # Save current graph
             nx.write_gexf(self.G, os.path.join("output_graphs", "%d.gexf"%i))
             sum_K_W = sum(self.G[v1][v2]["ricciCurvature"] * self.G[v1][v2][self.weight] for (v1, v2) in self.G.edges())
@@ -274,7 +274,7 @@ def main():
     g = DiGraph("DirectedExample.gml").G
     ricciflow = aStarNormalize(g)
     
-    return ricciflow.compute_ricci_curvature()
+    return ricciflow.compute_ricci_flow_normalized()
 
 
 if __name__ == "__main__":
