@@ -8,6 +8,7 @@ import time
 import sys
 
 from load_graph import *
+from surgery import *
 
 class aStarNormalize:
     
@@ -274,7 +275,11 @@ def main():
     g = DiGraph("DirectedExample.gml").G
     ricciflow = aStarNormalize(g)
     
-    return ricciflow.compute_ricci_flow_normalized()
+    ricciflow.compute_ricci_flow_normalized(50)
+    
+    g = cut_graph_by_cutoff(g, get_rf_metric_cutoff(g))
+    nx.write_gexf(g, os.path.join("output_graphs", "surg.gexf"))
+    return 0
 
 
 if __name__ == "__main__":
