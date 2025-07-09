@@ -281,11 +281,7 @@ def main():
     ricciflow = aStarNormalize(g)
     
     ricciflow.compute_ricci_flow_normalized(50)
-    
-    g.remove_edges_from({("d", "e"), ('b', "c")})
-    
-    print(nx.algorithms.community.modularity(g, nx.strongly_connected_components(g)))
-    nx.write_gexf(g, os.path.join("output_graphs", "surg.gexf"))
+    cut(g)
     
     return 0
 
