@@ -98,7 +98,7 @@ class aStarNormalize:
         # construct the cost dictionary from x to y
         d = np.zeros((len(x), len(y)))
 
-        # if not strongly connected, I think there is issues here
+        # if not strongly connected
         for i, src in enumerate(source_nbr):
             for j, dst in enumerate(target_nbr):
                 assert dst in self.lengths[src], "Target node not in list, should not happened, pair (%d, %d)" % (src, dst)
@@ -185,14 +185,18 @@ class aStarNormalize:
         
     def compute_ricci_flow_normalized(self, iterations=100, step=0.01, delta=1e-6, surgery={'name':'no_surgery', 'portion': 0.02, 'interval': 5}, save_gexf_dir=None):
         if not nx.is_strongly_connected(self.G): # used to say is connected? does it work like this? 
-            print("Not connected graph detected, compute on the largest connected component instead.")
-            self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
-            print('---------------------------')
+            print("Graph not strongly connected. Terminating...")
+            sys.exit(1)
+            # print("Not connected graph detected, compute on the largest connected component instead.")
+            # self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
+            # print('---------------------------')
 
         self.G.remove_edges_from(nx.selfloop_edges(self.G))
         
         #Save the original graph
-        nx.write_gexf(self.G, os.path.join("output_graphs", "origin.gexf"))
+        if not os.path.isdir(os.path.join(os.getcwd(), "output_graphs", self.G.graph['name'])):
+            os.makedirs(os.path.join(os.getcwd(), "output_graphs", self.G.graph['name']))
+        nx.write_gexf(self.G, os.path.join("output_graphs", self.G.name, "origin.gexf"))
         
         # Start compute edge Ricci flow
         t0 = time.time()
@@ -216,7 +220,8 @@ class aStarNormalize:
         for i in range(iterations):
             # self.lengths = self._get_all_pairs_shortest_path() # might not be necessary 
             # Save current graph
-            nx.write_gexf(self.G, os.path.join("output_graphs", "%d.gexf"%i))
+            # TODO: implement so that we make folders for each individual graph
+            nx.write_gexf(self.G, os.path.join("output_graphs", self.G.name, "%d.gexf"%i))
             sum_K_W = sum(self.G[v1][v2]["ricciCurvature"] * self.G[v1][v2][self.weight] for (v1, v2) in self.G.edges())
             a = sum(self.G[v1][v2][self.weight] for (v1, v2) in self.G.edges())
             for (v1, v2) in self.G.edges():
@@ -277,8 +282,11 @@ def main():
     
     ricciflow.compute_ricci_flow_normalized(50)
     
-    g = cut_graph_by_cutoff(g, get_rf_metric_cutoff(g))
+    g.remove_edges_from({("d", "e"), ('b', "c")})
+    
+    print(nx.algorithms.community.modularity(g, nx.strongly_connected_components(g)))
     nx.write_gexf(g, os.path.join("output_graphs", "surg.gexf"))
+    
     return 0
 
 
