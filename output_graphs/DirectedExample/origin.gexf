@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-07-09">
+    <creator>NetworkX 3.1</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="DirectedExample">
+    <attributes mode="static" class="edge">
+      <attribute id="1" title="value" type="double" />
+      <attribute id="2" title="fill" type="string" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="graphics" type="string" />
+    </attributes>
+    <nodes>
+      <node id="a" label="a">
+        <attvalues>
+          <attvalue for="0" value="{'x': -51.01194, 'y': 36.415527, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ff0000'}" />
+        </attvalues>
+      </node>
+      <node id="b" label="b">
+        <attvalues>
+          <attvalue for="0" value="{'x': 0.7693208, 'y': 36.365025, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#3333ff'}" />
+        </attvalues>
+      </node>
+      <node id="c" label="c">
+        <attvalues>
+          <attvalue for="0" value="{'x': 51.17106, 'y': 35.742474, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#33ff33'}" />
+        </attvalues>
+      </node>
+      <node id="d" label="d">
+        <attvalues>
+          <attvalue for="0" value="{'x': 50.76377, 'y': -33.292706, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ffff66'}" />
+        </attvalues>
+      </node>
+      <node id="e" label="e">
+        <attvalues>
+          <attvalue for="0" value="{'x': 0.59444934, 'y': -33.20785, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ff66ff'}" />
+        </attvalues>
+      </node>
+      <node id="f" label="f">
+        <attvalues>
+          <attvalue for="0" value="{'x': -51.282257, 'y': -32.982872, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#000000'}" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="a" target="b" id="0" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="a" target="f" id="9" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="c" id="4" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="e" id="10" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="a" id="13" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="c" target="d" id="17" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="d" target="e" id="6" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="d" target="c" id="11" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="e" target="b" id="15" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="e" target="f" id="16" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="f" target="e" id="8" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+      <edge source="f" target="a" id="12" weight="1.0">
+        <attvalues>
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="#000000" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

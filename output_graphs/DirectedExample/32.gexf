@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-07-09">
+    <creator>NetworkX 3.1</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="DirectedExample">
+    <attributes mode="static" class="edge">
+      <attribute id="2" title="value" type="double" />
+      <attribute id="3" title="fill" type="string" />
+      <attribute id="4" title="ricciCurvature" type="float" />
+      <attribute id="5" title="original_RC" type="float" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="graphics" type="string" />
+      <attribute id="1" title="ricciCurvature" type="float" />
+    </attributes>
+    <nodes>
+      <node id="a" label="a">
+        <attvalues>
+          <attvalue for="0" value="{'x': -51.01194, 'y': 36.415527, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ff0000'}" />
+          <attvalue for="1" value="0.2404359797591653" />
+        </attvalues>
+      </node>
+      <node id="b" label="b">
+        <attvalues>
+          <attvalue for="0" value="{'x': 0.7693208, 'y': 36.365025, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#3333ff'}" />
+          <attvalue for="1" value="-0.0620446652484273" />
+        </attvalues>
+      </node>
+      <node id="c" label="c">
+        <attvalues>
+          <attvalue for="0" value="{'x': 51.17106, 'y': 35.742474, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#33ff33'}" />
+          <attvalue for="1" value="0.15941573526083325" />
+        </attvalues>
+      </node>
+      <node id="d" label="d">
+        <attvalues>
+          <attvalue for="0" value="{'x': 50.76377, 'y': -33.292706, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ffff66'}" />
+          <attvalue for="1" value="-0.0070057679209774015" />
+        </attvalues>
+      </node>
+      <node id="e" label="e">
+        <attvalues>
+          <attvalue for="0" value="{'x': 0.59444934, 'y': -33.20785, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#ff66ff'}" />
+          <attvalue for="1" value="0.1818079057179388" />
+        </attvalues>
+      </node>
+      <node id="f" label="f">
+        <attvalues>
+          <attvalue for="0" value="{'x': -51.282257, 'y': -32.982872, 'z': 0.0, 'w': 4.0, 'h': 4.0, 'd': 4.0, 'fill': '#000000'}" />
+          <attvalue for="1" value="0.3873430422025236" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="a" target="b" id="0" weight="1.01335260156695">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.18015997119022528" />
+          <attvalue for="5" value="0.33333333332018733" />
+        </attvalues>
+      </edge>
+      <edge source="a" target="f" id="9" weight="0.8253458056135333">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.7815839478464359" />
+          <attvalue for="5" value="0.9999999998692056" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="c" id="4" weight="1.4638666673966532">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="-0.5918740361737244" />
+          <attvalue for="5" value="-1.333333333335603" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="e" id="10" weight="0.9986902558584131">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.26558837768081583" />
+          <attvalue for="5" value="0.33333333326516823" />
+        </attvalues>
+      </edge>
+      <edge source="b" target="a" id="13" weight="1.0976872971100735">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.016062332250772006" />
+          <attvalue for="5" value="-1.8889112496367488e-11" />
+        </attvalues>
+      </edge>
+      <edge source="c" target="d" id="17" weight="0.8715326515280775">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.47824720578249974" />
+          <attvalue for="5" value="0.999999999995744" />
+        </attvalues>
+      </edge>
+      <edge source="d" target="e" id="6" weight="1.3390701927753077">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="-0.3562812026502187" />
+          <attvalue for="5" value="-1.0000000000021294" />
+        </attvalues>
+      </edge>
+      <edge source="d" target="c" id="11" weight="0.8928892422153845">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.33526389888728647" />
+          <attvalue for="5" value="0.9999999989243706" />
+        </attvalues>
+      </edge>
+      <edge source="e" target="b" id="15" weight="1.0137033821800032">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.17697343302031168" />
+          <attvalue for="5" value="0.33333333332018755" />
+        </attvalues>
+      </edge>
+      <edge source="e" target="f" id="16" weight="0.8320362868316741">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.7320660955693824" />
+          <attvalue for="5" value="0.9999999998692054" />
+        </attvalues>
+      </edge>
+      <edge source="f" target="e" id="8" weight="0.8257374181571794">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.7767678735960611" />
+          <attvalue for="5" value="0.9999999998692055" />
+        </attvalues>
+      </edge>
+      <edge source="f" target="a" id="12" weight="0.8260881987667502">
+        <attvalues>
+          <attvalue for="2" value="1.0" />
+          <attvalue for="3" value="#000000" />
+          <attvalue for="4" value="0.7726042952140331" />
+          <attvalue for="5" value="0.9999999998692056" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
