@@ -17,7 +17,7 @@ def cut(graph):
     max_mod = 0
     max_mod_i = 0
     best_graph = G
-    threshold = max_weight - increment
+    threshold = max_weight
     for i in range(10):
         current_graph = G
         to_delete = list()
@@ -32,7 +32,7 @@ def cut(graph):
         if (max_mod > curr_mod):
             max_mod = curr_mod
             max_mod_i = i
-            best_graph = curr_graph
+            best_graph = current_graph
         threshold -= increment
         
     nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "best.gexf"))
