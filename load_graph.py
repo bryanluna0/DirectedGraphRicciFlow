@@ -4,7 +4,7 @@ import os
 class DiGraph:
     def __init__(self, graph_file):
         self.name = graph_file[0:-4]
-        self.G = nx.read_gml(os.path.join("input_graphs", graph_file)) 
+        self.G = nx.read_gml(os.path.join("input_graphs", graph_file), label=None)
         self.G.graph['name'] = self.name
         n_edges = len(self.G.edges())
         weight = {e: 1.0 for e in self.G.edges()}
