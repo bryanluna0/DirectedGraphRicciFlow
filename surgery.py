@@ -27,13 +27,18 @@ def cut(graph):
                 
         current_graph.remove_edges_from(to_delete)
                 
-        curr_mod = nx.algorithms.community.modularity(current_graph, nx.connected_components(current_graph.to_undirected()))
+        u_graph_connected = nx.connected_components(current_graph.to_undirected())
+        curr_mod = nx.algorithms.community.modularity(current_graph, u_graph_connected)
         print(curr_mod)
         if (max_mod > curr_mod):
             max_mod = curr_mod
             max_mod_i = i
             best_graph = current_graph
         threshold -= increment
+        if not os.path.isdir(os.path.join(os.getcwd(), "output_graphs", G.graph['name'], "surgery")):
+            os.makedirs(os.path.join(os.getcwd(), "output_graphs", G.graph['name'], "surgery"))
+        nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "surgery", "cut_%d.gexf"%i))
         
-    nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "best.gexf"))
+        
+    nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "surgery", "best_cut.gexf"))
         
