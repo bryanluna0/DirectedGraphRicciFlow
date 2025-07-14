@@ -18,10 +18,17 @@ gexf_files += sorted(numbered, key=lambda x: int(x[:-5]))
 if 'best.gexf' in os.listdir(gexf_folder):
     gexf_files.append('best.gexf')
 
+# Compute fixed positions from the input graph
+input_graph = nx.read_gml('/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/input_graphs/round_counter.gml', label=None)
+fixed_pos = nx.spring_layout(input_graph, seed=42)
+
+# Convert keys to strings to match GEXF node IDs
+fixed_pos = {str(k): v for k, v in fixed_pos.items()}
+
 for i, gexf_file in enumerate(gexf_files):
     g = nx.read_gexf(os.path.join(gexf_folder, gexf_file))
     plt.figure(figsize=(8, 6))
-    pos = nx.spring_layout(g, seed=42)
+    pos = fixed_pos  # Use fixed positions
 
     weights = [float(g[u][v].get('weight', 1.0)) for u, v in g.edges()]
     min_w, max_w = min(weights), max(weights)
@@ -29,10 +36,8 @@ for i, gexf_file in enumerate(gexf_files):
 
     # For the last frame, color communities
     if i == len(gexf_files) - 1:
-        # Detect communities (greedy modularity)
         from networkx.algorithms.community import greedy_modularity_communities
         communities = list(greedy_modularity_communities(g.to_undirected()))
-        # Assign a color to each community
         colors = []
         for _ in communities:
             colors.append([random.random(), random.random(), random.random()])
@@ -67,3 +72,4 @@ frames[0].save(
     save_all=True,
     duration=500,
     loop=0
+)
