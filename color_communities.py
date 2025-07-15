@@ -3,7 +3,7 @@ import random
 from networkx.algorithms.community import greedy_modularity_communities
 
 # Load the final graph
-g = nx.read_gexf('output_graphs/round_counter/best.gexf')
+g = nx.read_gexf('output_graphs/round_counter/surgery/best_cut.gexf')
 
 # Detect communities (using greedy modularity)
 communities = list(greedy_modularity_communities(g.to_undirected()))

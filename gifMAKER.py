@@ -15,12 +15,12 @@ if 'origin.gexf' in os.listdir(gexf_folder):
     gexf_files.append('origin.gexf')
 numbered = [f for f in os.listdir(gexf_folder) if f.endswith('.gexf') and f[:-5].isdigit()]
 gexf_files += sorted(numbered, key=lambda x: int(x[:-5]))
-if 'best.gexf' in os.listdir(gexf_folder):
-    gexf_files.append('best.gexf')
+if 'best_colored.gexf' in os.listdir(gexf_folder):
+    gexf_files.append('best_colored.gexf')
 
 # Compute fixed positions from the input graph
 input_graph = nx.read_gml('/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/input_graphs/round_counter.gml', label=None)
-fixed_pos = nx.spring_layout(input_graph, seed=42)
+fixed_pos = nx.kamada_kawai_layout(input_graph)
 
 # Convert keys to strings to match GEXF node IDs
 fixed_pos = {str(k): v for k, v in fixed_pos.items()}
