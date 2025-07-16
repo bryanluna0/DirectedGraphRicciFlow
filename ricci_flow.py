@@ -170,7 +170,6 @@ class aStarNormalize:
             for k in list(rc.keys()):
                 source, target = k
                 self.G[source][target]['ricciCurvature'] = rc[k]
-                print("rc - " + source + " to " + target + ":", rc[k])
 
         # Compute node Ricci curvature
         for n in self.G.nodes():
@@ -185,11 +184,10 @@ class aStarNormalize:
         
     def compute_ricci_flow_normalized(self, iterations=100, step=0.01, delta=1e-6, surgery={'name':'no_surgery', 'portion': 0.02, 'interval': 5}, save_gexf_dir=None):
         if not nx.is_strongly_connected(self.G): # used to say is connected? does it work like this? 
-            print("Graph not strongly connected. Terminating...")
-            sys.exit(1)
-            # print("Not connected graph detected, compute on the largest connected component instead.")
-            # self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
-            # print('---------------------------')
+            print("Not connected graph detected, compute on the largest strongly connected component instead.\n")
+            self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
+            print("Number of nodes： {}\nNumber of edges: {}".format(self.G.number_of_nodes(), self.G.number_of_edges()))
+            print('---------------------------')
 
         self.G.remove_edges_from(nx.selfloop_edges(self.G))
         
@@ -218,9 +216,7 @@ class aStarNormalize:
 #         x = list()
 # """""        
         for i in range(iterations):
-            # self.lengths = self._get_all_pairs_shortest_path() # might not be necessary 
             # Save current graph
-            # TODO: implement so that we make folders for each individual graph
             nx.write_gexf(self.G, os.path.join("output_graphs", self.G.name, "%d.gexf"%i))
             sum_K_W = sum(self.G[v1][v2]["ricciCurvature"] * self.G[v1][v2][self.weight] for (v1, v2) in self.G.edges())
             a = sum(self.G[v1][v2][self.weight] for (v1, v2) in self.G.edges())
@@ -277,10 +273,10 @@ class aStarNormalize:
         
 
 def main():
-    g = DiGraph("DirectedExample.gml").G
+    g = DiGraph("email_ricci.gml").G
     ricciflow = aStarNormalize(g)
     
-    ricciflow.compute_ricci_flow_normalized(50)
+    ricciflow.compute_ricci_flow_normalized(1)
     cut(g)
     
     return 0
