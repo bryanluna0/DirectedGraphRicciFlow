@@ -32,7 +32,7 @@ for i, gexf_file in enumerate(gexf_files):
 
     weights = [float(g[u][v].get('weight', 1.0)) for u, v in g.edges()]
     min_w, max_w = min(weights), max(weights)
-    norm_weights = [1 + 4 * (w - min_w) / (max_w - min_w) if max_w > min_w else 2 for w in weights]
+    norm_weights = [1 + 5 * (w - min_w) / (max_w - min_w) if max_w > min_w else 2 for w in weights]
 
     # For the last frame, color communities
     if i == len(gexf_files) - 1:
@@ -57,6 +57,11 @@ for i, gexf_file in enumerate(gexf_files):
         font_size=6
     )
     frame_path = os.path.join(image_folder, f"frame_{i:03d}.png")
+    if(i<=len(gexf_files) - 1 and gexf_file != 'best_colored.gexf'):
+        plt.title(f"Ricci Flow Iteration {i}")  # Adds a title at the top
+    else:
+            plt.title(f"Post Surgery") 
+
     plt.axis('off')
     plt.savefig(frame_path, bbox_inches='tight')
     plt.close()
