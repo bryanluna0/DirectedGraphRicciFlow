@@ -5,7 +5,6 @@ def cut(graph, weight="weight"):
     G = graph
     max_weight = 0
     for (u, v) in G.edges():
-        print(G[u][v][weight])
         if G[u][v][weight] > max_weight:
             max_weight = G[u][v][weight]
     min_weight = max_weight
@@ -13,10 +12,7 @@ def cut(graph, weight="weight"):
         if G[u][v][weight] < min_weight:
             min_weight = G[u][v][weight]
 
-    print("MAX:", max_weight)
-    print("MIN:", min_weight)
     increment = (max_weight - min_weight) / 10.0
-    print("INC:", increment)
     
     max_mod = 0
     best_graph = G
