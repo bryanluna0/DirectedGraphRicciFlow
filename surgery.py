@@ -15,7 +15,6 @@ def cut(graph):
     increment = (max_weight - min_weight) / 10.0
     
     max_mod = 0
-    max_mod_i = 0
     best_graph = G
     threshold = max_weight
     for i in range(10):
@@ -26,19 +25,22 @@ def cut(graph):
                 to_delete.append((u, v))
                 
         current_graph.remove_edges_from(to_delete)
-                
-        u_graph_connected = nx.connected_components(current_graph.to_undirected())
-        curr_mod = nx.algorithms.community.modularity(current_graph, u_graph_connected)
+
+        communities = nx.connected_components(current_graph.to_undirected())
+        # Only compute modularity if G has edges and there is more than one community
+        if G.number_of_edges() == 0 or current_graph.number_of_edges() == 0:
+            curr_mod = 0
+        else:
+            curr_mod = nx.algorithms.community.modularity(G, communities)
+            
         print(curr_mod)
         if (max_mod > curr_mod):
             max_mod = curr_mod
-            max_mod_i = i
             best_graph = current_graph
         threshold -= increment
         if not os.path.isdir(os.path.join(os.getcwd(), "output_graphs", G.graph['name'], "surgery")):
             os.makedirs(os.path.join(os.getcwd(), "output_graphs", G.graph['name'], "surgery"))
         nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "surgery", "cut_%d.gexf"%i))
-        
         
     nx.write_gexf(best_graph, os.path.join("output_graphs", G.name, "surgery", "best_cut.gexf"))
         
