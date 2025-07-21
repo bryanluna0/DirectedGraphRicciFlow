@@ -3,10 +3,15 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from PIL import Image
 import random
+from color_communities import color_communities
 
-# Folders
-gexf_folder = '/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/output_graphs/round_counter'
-image_folder = 'frames'
+
+# --------- General/Portable Setup ---------
+GRAPH_NAME = input("Enter the Graph Name:").strip()  # Change this to use a different graph
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+gexf_folder = os.path.join(BASE_DIR, 'output_graphs', GRAPH_NAME)
+image_folder = os.path.join(BASE_DIR, 'frames')
 os.makedirs(image_folder, exist_ok=True)
 
 # Build ordered list: origin.gexf, 0.gexf ... N.gexf, best_colored.gexf
@@ -18,12 +23,13 @@ gexf_files += sorted(numbered, key=lambda x: int(x[:-5]))
 if 'best_colored.gexf' in os.listdir(gexf_folder):
     gexf_files.append('best_colored.gexf')
 
-# Compute fixed positions from the input graph
-input_graph = nx.read_gml('/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/input_graphs/round_counter.gml', label=None)
+# --------- Fixed Position Layout ---------
+input_graph_path = os.path.join(BASE_DIR, 'input_graphs', f'{GRAPH_NAME}.gml')
+input_graph = nx.read_gml(input_graph_path, label=None)
 fixed_pos = nx.kamada_kawai_layout(input_graph)
 fixed_pos = {str(k): v for k, v in fixed_pos.items()}
 
-# Precompute global min/max weights across all GEXF files
+# --------- Precompute global min/max weights ---------
 global_min_w = float('inf')
 global_max_w = float('-inf')
 for gexf_file in gexf_files:
@@ -42,7 +48,6 @@ for i, gexf_file in enumerate(gexf_files):
     pos = fixed_pos  # Use fixed positions
 
     weights = [float(g[u][v].get('weight', 1.0)) for u, v in g.edges()]
-    # Use global min/max for normalization
     norm_weights = [
         min_width + (max_width - min_width) * (w - global_min_w) / (global_max_w - global_min_w) if global_max_w > global_min_w else min_width
         for w in weights
@@ -72,13 +77,15 @@ for i, gexf_file in enumerate(gexf_files):
     )
     frame_path = os.path.join(image_folder, f"frame_{i:03d}.png")
     if(i<=len(gexf_files) - 1 and gexf_file != 'best_colored.gexf'):
-        plt.title(f"Ricci Flow Iteration {i}")  # Adds a title at the top
+        plt.title(f"Ricci Flow Iteration {i}")
     else:
         plt.title(f"Post Surgery") 
 
     plt.axis('off')
     plt.savefig(frame_path, bbox_inches='tight')
     plt.close()
+
+color_communities(GRAPH_NAME)
 
 # Create GIF
 frames = [Image.open(os.path.join(image_folder, f)) for f in sorted(os.listdir(image_folder)) if f.endswith('.png')]
