@@ -9,7 +9,7 @@ gexf_folder = '/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/outpu
 image_folder = 'frames'
 os.makedirs(image_folder, exist_ok=True)
 
-# Build ordered list: origin.gexf, 0.gexf ... N.gexf, best.gexf
+# Build ordered list: origin.gexf, 0.gexf ... N.gexf, best_colored.gexf
 gexf_files = []
 if 'origin.gexf' in os.listdir(gexf_folder):
     gexf_files.append('origin.gexf')
@@ -21,9 +21,20 @@ if 'best_colored.gexf' in os.listdir(gexf_folder):
 # Compute fixed positions from the input graph
 input_graph = nx.read_gml('/Users/andrescorrea/Documents/GitHub/DirectedGraphRicciFlow/input_graphs/round_counter.gml', label=None)
 fixed_pos = nx.kamada_kawai_layout(input_graph)
-
-# Convert keys to strings to match GEXF node IDs
 fixed_pos = {str(k): v for k, v in fixed_pos.items()}
+
+# Precompute global min/max weights across all GEXF files
+global_min_w = float('inf')
+global_max_w = float('-inf')
+for gexf_file in gexf_files:
+    g = nx.read_gexf(os.path.join(gexf_folder, gexf_file))
+    weights = [float(g[u][v].get('weight', 1.0)) for u, v in g.edges()]
+    if weights:
+        global_min_w = min(global_min_w, min(weights))
+        global_max_w = max(global_max_w, max(weights))
+
+min_width = 1
+max_width = 15
 
 for i, gexf_file in enumerate(gexf_files):
     g = nx.read_gexf(os.path.join(gexf_folder, gexf_file))
@@ -31,8 +42,11 @@ for i, gexf_file in enumerate(gexf_files):
     pos = fixed_pos  # Use fixed positions
 
     weights = [float(g[u][v].get('weight', 1.0)) for u, v in g.edges()]
-    min_w, max_w = min(weights), max(weights)
-    norm_weights = [1 + 5 * (w - min_w) / (max_w - min_w) if max_w > min_w else 2 for w in weights]
+    # Use global min/max for normalization
+    norm_weights = [
+        min_width + (max_width - min_width) * (w - global_min_w) / (global_max_w - global_min_w) if global_max_w > global_min_w else min_width
+        for w in weights
+    ]
 
     # For the last frame, color communities
     if i == len(gexf_files) - 1:
@@ -60,7 +74,7 @@ for i, gexf_file in enumerate(gexf_files):
     if(i<=len(gexf_files) - 1 and gexf_file != 'best_colored.gexf'):
         plt.title(f"Ricci Flow Iteration {i}")  # Adds a title at the top
     else:
-            plt.title(f"Post Surgery") 
+        plt.title(f"Post Surgery") 
 
     plt.axis('off')
     plt.savefig(frame_path, bbox_inches='tight')
