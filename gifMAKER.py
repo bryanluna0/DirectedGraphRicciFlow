@@ -8,6 +8,7 @@ from color_communities import color_communities
 
 # --------- General/Portable Setup ---------
 GRAPH_NAME = input("Enter the Graph Name:").strip()  # Change this to use a different graph
+color_communities(GRAPH_NAME)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 gexf_folder = os.path.join(BASE_DIR, 'output_graphs', GRAPH_NAME)
@@ -85,7 +86,6 @@ for i, gexf_file in enumerate(gexf_files):
     plt.savefig(frame_path, bbox_inches='tight')
     plt.close()
 
-color_communities(GRAPH_NAME)
 
 # Create GIF
 frames = [Image.open(os.path.join(image_folder, f)) for f in sorted(os.listdir(image_folder)) if f.endswith('.png')]
