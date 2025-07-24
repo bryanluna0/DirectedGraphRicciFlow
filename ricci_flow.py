@@ -182,7 +182,7 @@ class aStarNormalize:
                 # Assign the node Ricci curvature to be the average of node's adjacency edges
                 self.G.nodes[n]['ricciCurvature'] = rc_sum / self.G.degree(n)
         
-    def compute_ricci_flow_normalized(self, iterations=100, step=0.01, delta=1e-6, surgery={'name':'no_surgery', 'portion': 0.02, 'interval': 5}, save_gexf_dir=None):
+    def compute_ricci_flow_normalized(self, iterations=100, step=0.01, delta=1e-6):
         if not nx.is_strongly_connected(self.G): # used to say is connected? does it work like this? 
             print("Not connected graph detected, compute on the largest strongly connected component instead.\n")
             self.G = nx.Graph(max([self.G.subgraph(c) for c in nx.strongly_connected_components(self.G)], key=len))
@@ -209,12 +209,6 @@ class aStarNormalize:
 
         # Start the Ricci flow process
         self.rc_diff = []
-# """""        
-#         ari = list()
-#         nmi = list()
-#         mod = list()
-#         x = list()
-# """""        
         for i in range(iterations):
             # Save current graph
             nx.write_gexf(self.G, os.path.join("output_graphs", self.G.name, "%d.gexf"%i))
@@ -248,36 +242,20 @@ class aStarNormalize:
             if diff < delta:
                 print("Ricci curvature converged, process terminated.")
                 break
-# """
-#             # do surgery or any specific evaluation
-#             surgery_func = surgery['name']
-#             do_surgery = surgery['interval']
-#             portion = surgery['portion']
-#             if i != 0 and i % do_surgery == 0:
-#                 self.G = getattr(Surgery, surgery_func)(self.G, self.weight, portion)
-# """
+            
             # clear the APSP and densities since the graph have changed.
             self.densities = {}
-# """
-#             ari.append(ARI(self.G, nx.connected_components(self.G)))
-#             nmi.append(NMI(self.G, nx.connected_components(self.G)))
-#             mod.append(Modularity(self.G, nx.connected_components(self.G)))
-#             x.append(i)
-
-#         nx.write_gexf(self.G, os.path.join(save_gexf_dir, "%d.gexf"%iterations))
-#         make_line_graph("ARI", ari, x)
-#         make_line_graph("NMI", nmi, x)
-#         make_line_graph("Modularity", mod, x)
-# """"
         print("\n%8f secs for Ricci flow computation." % (time.time() - t0))
         
 
 def main():
-    g = DiGraph("email_ricci.gml").G
+    g = DiGraph("round_counter.gml").G
     ricciflow = aStarNormalize(g)
     
-    ricciflow.compute_ricci_flow_normalized(1)
-    cut(g)
+    ricciflow.compute_ricci_flow_normalized(75)
+    
+    best = cut(g)
+    
     
     return 0
 
