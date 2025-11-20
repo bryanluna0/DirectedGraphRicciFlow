@@ -9,6 +9,7 @@ import sys
 
 from load_graph import *
 from surgery import *
+from evaluate import *
 
 class aStarNormalize:
     
@@ -246,17 +247,17 @@ class aStarNormalize:
             # clear the APSP and densities since the graph have changed.
             self.densities = {}
         print("\n%8f secs for Ricci flow computation." % (time.time() - t0))
+        return self.G
         
 
 def main():
-    g = DiGraph("round_counter.gml").G
+    g = DiGraph("email_EU_core.gml").G
     ricciflow = aStarNormalize(g)
     
-    ricciflow.compute_ricci_flow_normalized(75)
+    g = ricciflow.compute_ricci_flow_normalized(10)
     
     best = cut(g)
-    
-    
+    # evaluate_communities()
     return 0
 
 
