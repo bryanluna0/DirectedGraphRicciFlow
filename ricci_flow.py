@@ -6,10 +6,16 @@ import numpy as np
 import os
 import time
 import sys
+import warnings
 
 from load_graph import *
 from surgery import *
 from evaluate import *
+
+# # Convert warning to error to get full stack trace
+# np.seterr(all='raise')
+# # or
+# warnings.filterwarnings('error', category=RuntimeWarning)
 
 class aStarNormalize:
     
@@ -248,18 +254,25 @@ class aStarNormalize:
             self.densities = {}
         print("\n%8f secs for Ricci flow computation." % (time.time() - t0))
         return self.G
-        
+
 
 def main():
-    g = DiGraph("email_EU_core.gml").G
-    ricciflow = aStarNormalize(g)
+    if len(sys.argv) < 2:
+        print("Insufficient arguments.")
+        print("Use: python ricci_flow.py [graph_file].gml")
+        return
+        
+    graph_file = sys.argv[1]
+    g = DiGraph(graph_file).G
     
-    g = ricciflow.compute_ricci_flow_normalized(10)
+    ricciflow = aStarNormalize(g)
+    g = ricciflow.compute_ricci_flow_normalized(100)
     
     best = cut(g)
-    # evaluate_communities()
+    print(best)
+    
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
